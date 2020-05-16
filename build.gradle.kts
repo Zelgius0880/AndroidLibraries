@@ -1,6 +1,6 @@
 import java.io.FileInputStream
 import java.util.Properties
-import java.io.ByteArrayOutputStream
+import org.gradle.kotlin.dsl.provideDelegate
 
 plugins {
     id("java")
@@ -36,7 +36,6 @@ allprojects {
         jcenter()
 
     }
-
     if (this.name != this.rootProject.name) { //Nothing is in the root project
         afterEvaluate {
             publishing {
@@ -44,7 +43,7 @@ allprojects {
                     create<MavenPublication>("release") {
                         groupId = "com.zelgius.${this@allprojects.name}"
                         //artifactId = "livedataextensions-release"
-                        version = "1.0"
+                        version = this@allprojects.getProperty("version", "deploy.properties")?: "0.0"
 
                         //from(components["java"])
                         artifacts {
@@ -59,24 +58,15 @@ allprojects {
                 repositories {
                     maven("${project.rootDir}/releases")
                 }
+
+                "git add ${project.rootDir}/releases".runCommand()
+
             }
         }
     }
 
 }
 
-val getProps by extra {
-    fun(propName: String): Any {
-        val propsFile = rootProject.file("local.properties")
-        return if (propsFile.exists()) {
-            val props = Properties()
-            props.load(FileInputStream(propsFile))
-            props[propName] as Any
-        } else {
-            ""
-        }
-    }
-}
 
 //createRequiredPublishingTasks(project, sourceSets["java"].allSource)
 
@@ -185,14 +175,6 @@ val configurePublishing by extra {
     }
 }
 
-tasks.register("publishAndGitAdd") {
-    dependsOn(tasks["publish"])
-
-    doLast {
-        "git add ${project.rootDir}/releases".runCommand()
-    }
-}
-
 fun String.runCommand(workingDir: File = file("./")): String {
     val parts = this.split("\\s".toRegex())
     val proc = ProcessBuilder(*parts.toTypedArray())
@@ -204,4 +186,15 @@ fun String.runCommand(workingDir: File = file("./")): String {
     println(this)
     proc.waitFor(1, TimeUnit.MINUTES)
     return proc.inputStream.bufferedReader().readText().trim()
+}
+
+fun <T> Project.getProperty(key: String, fileName: String = "local.properties"): T? {
+    val propsFile = file(fileName)
+    return if (propsFile.exists()) {
+        val props = Properties()
+        props.load(FileInputStream(propsFile))
+        props[key] as T
+    } else {
+        null
+    }
 }
