@@ -5,6 +5,8 @@ plugins {
     kotlin("android")
     id("kotlin-android-extensions")
     id("kotlin-kapt")
+    `maven-publish`
+
 }
 
 sourceSets {
@@ -22,6 +24,7 @@ enableJavadoc(project, mainSourceSet)
 
 configurePublishing(project,mainSourceSet)
 
+val versionName = "1.0.5"
 android {
     compileSdkVersion(29)
     buildToolsVersion ("29.0.2")
@@ -30,7 +33,7 @@ android {
         minSdkVersion (26)
         targetSdkVersion (29)
         versionCode = 1
-        versionName = "1.0"
+        versionName = versionName
 
         testInstrumentationRunner  = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles ("consumer-rules.pro")
@@ -43,6 +46,24 @@ android {
         }
     }
 
+    afterEvaluate {
+        publishing {
+            publications {
+                create<MavenPublication>("release") {
+                    from(components["release"])
+                    groupId = "com.zelgius.android-libraries"
+                    //artifactId = "livedataextensions-release"
+                    version = versionName
+                }
+            }
+
+            repositories {
+                maven("${project.rootDir}/releases")
+            }
+
+
+        }
+    }
 }
 
 dependencies {
