@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.cli.jvm.main
+import java.lang.IllegalStateException
 
 plugins {
     id("com.android.library")
@@ -12,14 +13,15 @@ sourceSets {
 }
 
 val kotlinVersion = rootProject.extra.get("kotlinVersion") as String
-val enableJavadoc = rootProject.extra.get("enableJavadoc") as (Project) -> Unit
+val enableJavadoc = rootProject.extra.get("enableJavadoc") as (Project, FileTree) -> Unit
 val enableTest = rootProject.extra.get("enableTests") as (Project) -> Unit
-val configurePublishing = rootProject.extra.get("configurePublishing") as (Project) -> Unit
+val configurePublishing = rootProject.extra.get("configurePublishing") as (Project, FileTree) -> Unit
 
-enableJavadoc(project)
+val mainSourceSet =  project.android.sourceSets["main"].java.getSourceFiles()
+enableJavadoc(project, mainSourceSet)
 enableTest(project)
 
-configurePublishing(project)
+configurePublishing(project,mainSourceSet)
 
 android {
     compileSdkVersion(29)

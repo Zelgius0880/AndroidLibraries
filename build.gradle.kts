@@ -1,13 +1,12 @@
-import org.jetbrains.kotlin.backend.common.push
-import java.net.URI
 import java.io.FileInputStream
 import java.util.Properties
+import java.io.ByteArrayOutputStream
 
 plugins {
     id("java")
     `maven-publish`
 }
-val componentJava by extra { components["java"]!! }
+//val componentJava by extra { components["java"]!! }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
@@ -38,7 +37,7 @@ allprojects {
 
     }
 
-    if(this.name != this.rootProject.name) { //Nothing is in the root project
+    if (this.name != this.rootProject.name) { //Nothing is in the root project
         afterEvaluate {
             publishing {
                 publications {
@@ -49,9 +48,10 @@ allprojects {
 
                         //from(components["java"])
                         artifacts {
-                            add("archives", tasks["sourceJar"])
-                            add("archives", tasks["testJar"])
-                            add("archives", tasks["javadocJar"])
+                            add("archives", this@allprojects.tasks["sourceJar"])
+                            add("archives", this@allprojects.tasks["testJar"])
+                            add("archives", this@allprojects.tasks["javadocJar"])
+                            artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
                         }
                     }
                 }
@@ -78,13 +78,13 @@ val getProps by extra {
     }
 }
 
-createRequiredPublishingTasks(project)
+//createRequiredPublishingTasks(project, sourceSets["java"].allSource)
 
 
 val enableJavadoc by extra {
-    { p: Project ->
+    { p: Project, mainSourceSet: FileTree ->
         p.tasks.create("javadoc", Javadoc::class) {
-            source = sourceSets["main"].allJava
+            source = mainSourceSet
 
         }
     }
@@ -145,13 +145,12 @@ val enableTests by extra {
     }
 }
 
-fun createRequiredPublishingTasks(p: Project) {
+fun createRequiredPublishingTasks(p: Project, mainSourceSet: FileTree) {
     p.tasks.create("sourceJar", Jar::class) {
 
         dependsOn(JavaPlugin.CLASSES_TASK_NAME)
         archiveClassifier.set("sources")
-        println(p.sourceSets)
-        from(sourceSets["main"].allSource)
+        from(mainSourceSet)
     }
 
     p.tasks.create("javadocJar", Jar::class) {
@@ -163,25 +162,46 @@ fun createRequiredPublishingTasks(p: Project) {
         } catch (e: Exception) {
             logger.log(LogLevel.ERROR, "Cannot build javadoc: ${e.message}")
         }
+    }
 
-        p.tasks.create("testJar", Jar::class) {
-            try {
-                dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
-                archiveClassifier.set("tests")
-                from(p.tasks["tests"])
-                println("tests compiled")
+    p.tasks.create("testJar", Jar::class) {
+        try {
+            dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
+            archiveClassifier.set("tests")
+            from(p.tasks["tests"])
+            println("tests compiled")
 
-            } catch (e: Exception) {
-                logger.log(LogLevel.ERROR, "Cannot build test: ${e.message}")
-            }
+        } catch (e: Exception) {
+            logger.log(LogLevel.ERROR, "Cannot build test: ${e.message}")
         }
     }
 }
 
 val configurePublishing by extra {
-    { p: Project ->
+    { p: Project, mainSourceSet: FileTree ->
         p.apply(plugin = "maven-publish")
 
-        createRequiredPublishingTasks(p)
+        createRequiredPublishingTasks(p, mainSourceSet)
     }
+}
+
+tasks.register("publishAndGitAdd") {
+    dependsOn(tasks["publish"])
+
+    doLast {
+        "git add ${project.rootDir}/releases".runCommand()
+    }
+}
+
+fun String.runCommand(workingDir: File = file("./")): String {
+    val parts = this.split("\\s".toRegex())
+    val proc = ProcessBuilder(*parts.toTypedArray())
+        .directory(workingDir)
+        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+        .redirectError(ProcessBuilder.Redirect.PIPE)
+        .start()
+
+    println(this)
+    proc.waitFor(1, TimeUnit.MINUTES)
+    return proc.inputStream.bufferedReader().readText().trim()
 }

@@ -142,6 +142,7 @@ gradle-app.setting
 # Built application files
 *.apk
 *.aar
+!releases/**/*.aar
 *.ap_
 *.aab
 
