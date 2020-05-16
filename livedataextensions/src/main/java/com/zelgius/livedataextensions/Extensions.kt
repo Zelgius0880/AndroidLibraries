@@ -4,9 +4,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
+data class TaMere(val dummy: String)
 
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner,  work: (T) -> Unit) {
-    val observer =
         observe(lifecycleOwner, object  : Observer<T> {
             override fun onChanged(t: T) {
                 work(t)

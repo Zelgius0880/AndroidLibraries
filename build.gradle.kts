@@ -47,6 +47,7 @@ allprojects {
                         version =
                             this@allprojects.getProperty("version", "deploy.properties") ?: "0.0"
 
+
                         //from(components["java"])
                         artifacts {
                             add("archives", this@allprojects.tasks["sourceJar"])

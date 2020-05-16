@@ -1,0 +1,82 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.zelgius.android-libraries",
+    "module": "livedataextensions",
+    "version": "1.0.6",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.4-rc-2",
+      "buildId": "igt6qgr5hfgsfam5lstlol3sfm"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "livedataextensions-1.0.6.aar",
+          "url": "livedataextensions-1.0.6.aar",
+          "size": 4812,
+          "sha512": "14105f62d88be61bfc3607ac0447b2940800ab20940ab7b654ab34b8448c9b383f2ec190b52e9c006eab9b9dd99bfac5da6f889c99aab9826d55289ee172e588",
+          "sha256": "3d37321e7e1c3d9c3f313bcab79055d2c60cb53a1ac275b728f7d184076c1bb2",
+          "sha1": "2ce9be547194eefc3ca0bf285b05e5c0f0f4e211",
+          "md5": "169848c1e863cf06a6c05ebfd4ae0dab"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-android-extensions-runtime",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk7",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "androidx.lifecycle",
+          "module": "lifecycle-livedata",
+          "version": {
+            "requires": "2.2.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "livedataextensions-1.0.6.aar",
+          "url": "livedataextensions-1.0.6.aar",
+          "size": 4812,
+          "sha512": "14105f62d88be61bfc3607ac0447b2940800ab20940ab7b654ab34b8448c9b383f2ec190b52e9c006eab9b9dd99bfac5da6f889c99aab9826d55289ee172e588",
+          "sha256": "3d37321e7e1c3d9c3f313bcab79055d2c60cb53a1ac275b728f7d184076c1bb2",
+          "sha1": "2ce9be547194eefc3ca0bf285b05e5c0f0f4e211",
+          "md5": "169848c1e863cf06a6c05ebfd4ae0dab"
+        }
+      ]
+    }
+  ]
+}

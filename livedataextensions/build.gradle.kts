@@ -24,7 +24,7 @@ enableJavadoc(project, mainSourceSet)
 
 configurePublishing(project,mainSourceSet)
 
-val versionName = "1.0.5"
+val versionName = "1.0.6"
 android {
     compileSdkVersion(29)
     buildToolsVersion ("29.0.2")
@@ -40,8 +40,10 @@ android {
     }
 
     buildTypes {
+
         getByName("release") {
-            //isMinifyEnabled = false
+            isMinifyEnabled = false
+            isUseProguard = false
             //proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
