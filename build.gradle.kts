@@ -1,7 +1,5 @@
 import java.io.FileInputStream
 import java.util.Properties
-import org.gradle.kotlin.dsl.provideDelegate
-import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     id("java")
@@ -42,7 +40,7 @@ allprojects {
             publishing {
                 publications {
                     create<MavenPublication>("release") {
-                        groupId = "com.zelgius.${this@allprojects.name}"
+                        groupId = "com.zelgius.android-libraries"
                         //artifactId = "livedataextensions-release"
                         version = this@allprojects.getProperty("version", "deploy.properties")?: "0.0"
 
