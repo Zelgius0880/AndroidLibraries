@@ -1,6 +1,7 @@
 import java.io.FileInputStream
 import java.util.Properties
 import org.gradle.kotlin.dsl.provideDelegate
+import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     id("java")
@@ -47,7 +48,7 @@ allprojects {
 
                         //from(components["java"])
                         artifacts {
-                            add("archives", this@allprojects.tasks["sourceJar"])
+                            //add("archives", this@allprojects.tasks["sourceJar"])
                             add("archives", this@allprojects.tasks["testJar"])
                             add("archives", this@allprojects.tasks["javadocJar"])
                             artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
@@ -59,12 +60,18 @@ allprojects {
                     maven("${project.rootDir}/releases")
                 }
 
-                "git add ${project.rootDir}/releases".runCommand()
 
             }
         }
     }
 
+}
+
+tasks.register("done") {
+    dependsOn (getTasksByName("assemble", true))
+    dependsOn (getTasksByName("publish", true))
+    "git add ${project.rootDir}/releases".runCommand()
+    println("done")
 }
 
 
@@ -136,12 +143,12 @@ val enableTests by extra {
 }
 
 fun createRequiredPublishingTasks(p: Project, mainSourceSet: FileTree) {
-    p.tasks.create("sourceJar", Jar::class) {
+    /*p.tasks.create("sourceJar", Jar::class) {
 
         dependsOn(JavaPlugin.CLASSES_TASK_NAME)
         archiveClassifier.set("sources")
         from(mainSourceSet)
-    }
+    }*/
 
     p.tasks.create("javadocJar", Jar::class) {
         try {

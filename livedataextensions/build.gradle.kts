@@ -19,7 +19,7 @@ val configurePublishing = rootProject.extra.get("configurePublishing") as (Proje
 
 val mainSourceSet =  project.android.sourceSets["main"].java.getSourceFiles()
 enableJavadoc(project, mainSourceSet)
-enableTest(project)
+//enableTest(project)
 
 configurePublishing(project,mainSourceSet)
 
@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation (fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
     // implementation ("androidx.core:core-ktx:1.2.0")
     implementation("androidx.lifecycle:lifecycle-livedata:2.2.0")
