@@ -38,15 +38,13 @@ allprojects {
     }
     if (this.name != this.rootProject.name) { //Nothing is in the root project
         afterEvaluate {
-            /*publishing {
+            publishing {
                 publications {
                     create<MavenPublication>("release") {
-                        from(this@allprojects.components["release"])
                         groupId = "com.zelgius.android-libraries"
                         //artifactId = "livedataextensions-release"
                         version =
                             this@allprojects.getProperty("version", "deploy.properties") ?: "0.0"
-
 
                         //from(components["java"])
                         artifacts {
@@ -63,7 +61,7 @@ allprojects {
                 }
 
 
-            }*/
+            }
         }
     }
 

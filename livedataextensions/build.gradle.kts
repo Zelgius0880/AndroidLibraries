@@ -48,7 +48,7 @@ android {
         }
     }
 
-    afterEvaluate {
+    /*afterEvaluate {
         publishing {
             publications {
                 create<MavenPublication>("release") {
@@ -65,7 +65,7 @@ android {
 
 
         }
-    }
+    }*/
 }
 
 dependencies {
