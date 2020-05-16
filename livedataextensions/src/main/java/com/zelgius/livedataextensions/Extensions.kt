@@ -21,3 +21,5 @@ inline fun <T> LiveData<T>.observe(lifecycleOwner: LifecycleOwner, crossinline w
         work(it)
     })
 }
+
+fun String.hello() = "hello"
