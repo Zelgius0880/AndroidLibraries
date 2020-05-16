@@ -28,14 +28,16 @@ buildscript {
         // in the individual module build.gradle files
     }
 
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+
+        }
+    }
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-
-    }
     if (this.name != this.rootProject.name) { //Nothing is in the root project
         afterEvaluate {
             publishing {
@@ -44,7 +46,8 @@ allprojects {
                         groupId = "com.zelgius.android-libraries"
                         //artifactId = "livedataextensions-release"
                         version =
-                            this@allprojects.getProperty("version", "deploy.properties") ?: "0.0"
+                            this@allprojects.getProperty("version", "deploy.properties")
+                                ?: "0.0"
 
                         //from(components["java"])
                         artifacts {
@@ -82,7 +85,7 @@ tasks.register("done") {
 
 
 val enableJavadoc by extra {
-    { p: Project, mainSourceSet:  Set<File> ->
+    { p: Project, mainSourceSet: Set<File> ->
         p.tasks.create("javadoc", Javadoc::class) {
             source(fileTree("src/main"))
         }

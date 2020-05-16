@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 
 data class TaMere(val dummy: String)
 
-fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner,  work: (T) -> Unit) {
+inline fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, crossinline work: (T) -> Unit) {
         observe(lifecycleOwner, object  : Observer<T> {
             override fun onChanged(t: T) {
                 work(t)
@@ -16,7 +16,7 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner,  work: (T) -> Un
 }
 
 
-fun <T> LiveData<T>.observe(lifecycleOwner: LifecycleOwner, work: (T) -> Unit) {
+inline fun <T> LiveData<T>.observe(lifecycleOwner: LifecycleOwner, crossinline work: (T) -> Unit) {
     observe(lifecycleOwner, Observer {
         work(it)
     })
