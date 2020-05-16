@@ -5,6 +5,7 @@ plugins {
     id("java")
     `maven-publish`
 }
+
 //val componentJava by extra { components["java"]!! }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -42,11 +43,12 @@ allprojects {
                     create<MavenPublication>("release") {
                         groupId = "com.zelgius.android-libraries"
                         //artifactId = "livedataextensions-release"
-                        version = this@allprojects.getProperty("version", "deploy.properties")?: "0.0"
+                        version =
+                            this@allprojects.getProperty("version", "deploy.properties") ?: "0.0"
 
                         //from(components["java"])
                         artifacts {
-                            //add("archives", this@allprojects.tasks["sourceJar"])
+                            add("archives", this@allprojects.tasks["sourceJar"])
                             add("archives", this@allprojects.tasks["testJar"])
                             add("archives", this@allprojects.tasks["javadocJar"])
                             artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
@@ -66,10 +68,13 @@ allprojects {
 }
 
 tasks.register("done") {
-    dependsOn (getTasksByName("assemble", true))
-    dependsOn (getTasksByName("publish", true))
-    "git add ${project.rootDir}/releases".runCommand()
-    println("done")
+    dependsOn(getTasksByName("assemble", true))
+    dependsOn(getTasksByName("publish", true))
+
+    doLast {
+        "git add ${project.rootDir}/releases".runCommand()
+        println("done")
+    }
 }
 
 
@@ -77,10 +82,9 @@ tasks.register("done") {
 
 
 val enableJavadoc by extra {
-    { p: Project, mainSourceSet: FileTree ->
+    { p: Project, mainSourceSet:  Set<File> ->
         p.tasks.create("javadoc", Javadoc::class) {
-            source = mainSourceSet
-
+            source(fileTree("src/main"))
         }
     }
 }
@@ -140,26 +144,24 @@ val enableTests by extra {
     }
 }
 
-fun createRequiredPublishingTasks(p: Project, mainSourceSet: FileTree) {
-    /*p.tasks.create("sourceJar", Jar::class) {
-
-        dependsOn(JavaPlugin.CLASSES_TASK_NAME)
+fun createRequiredPublishingTasks(p: Project, mainSourceSet: Set<File>) {
+    p.tasks.register("sourceJar", Jar::class) {
         archiveClassifier.set("sources")
         from(mainSourceSet)
-    }*/
+    }
 
-    p.tasks.create("javadocJar", Jar::class) {
+    p.tasks.register("javadocJar", Jar::class) {
         try {
             dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
             archiveClassifier.set("javadoc")
-            from(p.tasks["javadoc"])
+            from(tasks["javadoc"])
             println("javadoc compiled")
         } catch (e: Exception) {
             logger.log(LogLevel.ERROR, "Cannot build javadoc: ${e.message}")
         }
     }
 
-    p.tasks.create("testJar", Jar::class) {
+    p.tasks.register("testJar", Jar::class) {
         try {
             dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
             archiveClassifier.set("tests")
@@ -173,7 +175,7 @@ fun createRequiredPublishingTasks(p: Project, mainSourceSet: FileTree) {
 }
 
 val configurePublishing by extra {
-    { p: Project, mainSourceSet: FileTree ->
+    { p: Project, mainSourceSet: Set<File> ->
         p.apply(plugin = "maven-publish")
 
         createRequiredPublishingTasks(p, mainSourceSet)

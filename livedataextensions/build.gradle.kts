@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.cli.jvm.main
-import java.lang.IllegalStateException
 
 plugins {
     id("com.android.library")
@@ -13,11 +12,11 @@ sourceSets {
 }
 
 val kotlinVersion = rootProject.extra.get("kotlinVersion") as String
-val enableJavadoc = rootProject.extra.get("enableJavadoc") as (Project, FileTree) -> Unit
+val enableJavadoc = rootProject.extra.get("enableJavadoc") as (Project, Set<File>) -> Unit
 val enableTest = rootProject.extra.get("enableTests") as (Project) -> Unit
-val configurePublishing = rootProject.extra.get("configurePublishing") as (Project, FileTree) -> Unit
+val configurePublishing = rootProject.extra.get("configurePublishing") as (Project, Set<File>) -> Unit
 
-val mainSourceSet =  project.android.sourceSets["main"].java.getSourceFiles()
+val mainSourceSet =  project.android.sourceSets["main"].java.srcDirs
 enableJavadoc(project, mainSourceSet)
 //enableTest(project)
 
@@ -39,8 +38,8 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            //isMinifyEnabled = false
+            //proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
