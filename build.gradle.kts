@@ -14,11 +14,15 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.zelgius.android-libraries"
-            artifactId = "project1-sample"
+            artifactId = "livedataextensions"
             version = "1.1"
 
             from(components["java"])
         }
+    }
+
+    repositories {
+        maven("${project.rootDir}/releases")
     }
 }
 
