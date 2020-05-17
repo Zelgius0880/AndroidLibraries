@@ -1,13 +1,22 @@
 import java.io.FileInputStream
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.dokka.gradle.DokkaTask
+import org.gradle.api.internal.tasks.TaskDependencyResolveException
 
 plugins {
-    id("java")
+    kotlin("jvm") version "1.3.72"
     `maven-publish`
+    id("org.jetbrains.dokka") version "0.10.1"
 }
 
 //val componentJava by extra { components["java"]!! }
 
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     val kotlinVersion by extra { "1.3.72" }
@@ -20,7 +29,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0-alpha09")
+        classpath("com.android.tools.build:gradle:3.6.3")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:firebase-plugins:2.0.0")
@@ -32,45 +41,58 @@ buildscript {
         repositories {
             google()
             jcenter()
-
+            maven(url = "https://dl.bintray.com/kotlin/dokka")
         }
     }
+
+
 }
 
 allprojects {
     if (this.name != this.rootProject.name) { //Nothing is in the root project
+        val dokka = tasks.create("dokkaDoc", DokkaTask::class) {
+            outputFormat = "html"
+            outputDirectory = "${buildDir}/dokka"
+            subProjects = subprojects.map { it.name }
+        }
+
+        val doc = tasks.create("dokkaJar", Jar::class) {
+            group = JavaBasePlugin.DOCUMENTATION_GROUP
+            description = "Assembles Kotlin docs with Dokka"
+            archiveClassifier.set("javadoc")
+            from(dokka)
+            dependsOn(dokka)
+        }
+
         afterEvaluate {
+
             publishing {
                 publications {
                     create<MavenPublication>("release") {
                         groupId = "com.zelgius.android-libraries"
                         //artifactId = "livedataextensions-release"
                         version =
-                            this@allprojects.getProperty("version", "deploy.properties")
-                                ?: "0.0"
+                            getProperty("version", "deploy.properties") ?: "0.0"
 
                         //from(components["java"])
-                        artifacts {
-                            add("archives", this@allprojects.tasks["sourceJar"])
-                            add("archives", this@allprojects.tasks["testJar"])
-                            add("archives", this@allprojects.tasks["javadocJar"])
-                            artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
-                        }
+                        //from(projectComponents[this@allprojects])
+
+                        artifact(doc)
+                        artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
+
                     }
                 }
 
                 repositories {
                     maven("${project.rootDir}/releases")
                 }
-
-
             }
         }
     }
-
 }
 
 tasks.register("done") {
+    //dependsOn(getTasksByName("dokkaDoc", true))
     dependsOn(getTasksByName("assemble", true))
     dependsOn(getTasksByName("publish", true))
 
@@ -79,19 +101,6 @@ tasks.register("done") {
         println("done")
     }
 }
-
-
-//createRequiredPublishingTasks(project, sourceSets["java"].allSource)
-
-
-val enableJavadoc by extra {
-    { p: Project, mainSourceSet: Set<File> ->
-        p.tasks.create("javadoc", Javadoc::class) {
-            source(fileTree("src/main"))
-        }
-    }
-}
-
 
 val enableTests by extra {
     { p: Project ->
@@ -144,44 +153,6 @@ val enableTests by extra {
                 logger.lifecycle("Test: $testDescriptor produced standard out/err: $outputEvent.message")
             }
         }
-    }
-}
-
-fun createRequiredPublishingTasks(p: Project, mainSourceSet: Set<File>) {
-    p.tasks.register("sourceJar", Jar::class) {
-        archiveClassifier.set("sources")
-        from(mainSourceSet)
-    }
-
-    p.tasks.register("javadocJar", Jar::class) {
-        try {
-            dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
-            archiveClassifier.set("javadoc")
-            from(tasks["javadoc"])
-            println("javadoc compiled")
-        } catch (e: Exception) {
-            logger.log(LogLevel.ERROR, "Cannot build javadoc: ${e.message}")
-        }
-    }
-
-    p.tasks.register("testJar", Jar::class) {
-        try {
-            dependsOn(JavaPlugin.JAVADOC_TASK_NAME)
-            archiveClassifier.set("tests")
-            from(p.tasks["tests"])
-            println("tests compiled")
-
-        } catch (e: Exception) {
-            logger.log(LogLevel.ERROR, "Cannot build test: ${e.message}")
-        }
-    }
-}
-
-val configurePublishing by extra {
-    { p: Project, mainSourceSet: Set<File> ->
-        p.apply(plugin = "maven-publish")
-
-        createRequiredPublishingTasks(p, mainSourceSet)
     }
 }
 
