@@ -1,8 +1,9 @@
+import com.android.build.gradle.api.LibraryVariant
 import java.io.FileInputStream
 import java.util.Properties
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.dokka.gradle.DokkaTask
-import org.gradle.api.internal.tasks.TaskDependencyResolveException
+import org.gradle.api.internal.DefaultDomainObjectSet
 
 plugins {
     kotlin("jvm") version "1.3.72"
@@ -48,38 +49,88 @@ buildscript {
 
 }
 
-allprojects {
-    if (this.name != this.rootProject.name) { //Nothing is in the root project
-        val dokka = tasks.create("dokkaDoc", DokkaTask::class) {
-            //outputFormat = "html"
-            outputDirectory = "${buildDir}/dokka"
-            subProjects = subprojects.map { it.name }
+tasks.register("done") {
+    //dependsOn(getTasksByName("dokkaDoc", true))
+    dependsOn(getTasksByName("assemble", true))
+    dependsOn(getTasksByName("publish", true))
+
+    doLast {
+        "git add ${project.rootDir}/releases".runCommand()
+        println("done")
+    }
+
+}
+
+
+tasks.register("commit") {
+    //dependsOn(getTasksByName("dokkaDoc", true))
+    dependsOn(getTasksByName("done", true))
+
+    doLast {
+        val builder = StringBuilder()
+        val status = "git status".runCommand()
+        subprojects.forEach {
+            with(File(it.projectDir, "version.properties")) {
+
+                if(exists() && status.contains("${it.name}/$name")) {
+                    println("${it.name} was modified")
+
+                    it.getProperty<String>("commit_message", "version.properties")?.let { s ->
+                        builder.append(if(builder.isEmpty()) s else " - $s" )
+                    }?: it.getProperty<String>("version", "version.properties")?.let { s ->
+                        builder.append(if(builder.isEmpty()) "${it.name}: $s" else " - ${it.name}: $s" )
+                    }
+                }
+            }
         }
 
-        val doc = tasks.create("dokkaJar", Jar::class) {
-            group = JavaBasePlugin.DOCUMENTATION_GROUP
-            description = "Assembles Kotlin docs with Dokka"
+        println("commit message: $builder")
+        println("git commit --all -m \"$builder\"".runCommand(failOnError = true))
+        println("git push".runCommand(failOnError = true))
+    }
+
+}
+
+
+val publish by extra {
+    { p: Project, sourceSet: Set<File>, variant: DefaultDomainObjectSet<LibraryVariant>, classPath: FileCollection ->
+
+        val buildDoc = p.tasks.create("buildDoc",Javadoc::class) {
+            isFailOnError = false
+            source ( sourceSet)
+            classpath += project.files(classPath)
+            variant.forEach { variant ->
+                if (variant.name == "release") {
+                    classpath += variant.javaCompileProvider.get().classpath
+                }
+            }
+            exclude ("**/R.html", "**/R.*.html", "**/index.html")
+        }
+
+        val doc = tasks.create("doc", Jar::class) {
+            dependsOn(buildDoc)
             archiveClassifier.set("javadoc")
-            from(dokka)
-            dependsOn(dokka)
+            from(buildDoc.destinationDir)
         }
 
-        afterEvaluate {
+        val source = tasks.create("androidSources", Jar::class) {
+            archiveClassifier.set("sources")
+            from (sourceSet)
+        }
 
-            publishing {
+        p.afterEvaluate {
+            p.publishing {
                 publications {
                     create<MavenPublication>("release") {
                         groupId = "com.zelgius.android-libraries"
                         //artifactId = "livedataextensions-release"
-                        version =
-                            getProperty("version", "deploy.properties") ?: "0.0"
+                        version =  p.getProperty<String>("version", "version.properties")
 
-                        //from(components["java"])
-                        //from(projectComponents[this@allprojects])
+                        from(p.components["release"])
 
                         artifacts {
                             artifact(doc)
-                            artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
+                            artifact(source)
                         }
                         pom {
                             withXml {
@@ -106,17 +157,7 @@ allprojects {
                 }
             }
         }
-    }
-}
 
-tasks.register("done") {
-    //dependsOn(getTasksByName("dokkaDoc", true))
-    dependsOn(getTasksByName("assemble", true))
-    dependsOn(getTasksByName("publish", true))
-
-    doLast {
-        "git add ${project.rootDir}/releases".runCommand()
-        println("done")
     }
 }
 
@@ -174,7 +215,7 @@ val enableTests by extra {
     }
 }
 
-fun String.runCommand(workingDir: File = file("./")): String {
+fun String.runCommand(workingDir: File = file("./"), failOnError: Boolean = false): String {
     val parts = this.split("\\s".toRegex())
     val proc = ProcessBuilder(*parts.toTypedArray())
         .directory(workingDir)
@@ -184,6 +225,15 @@ fun String.runCommand(workingDir: File = file("./")): String {
 
     println(this)
     proc.waitFor(1, TimeUnit.MINUTES)
+
+    val error = proc.errorStream.bufferedReader().readText().trim()
+    if(error.isNotBlank()) {
+        if(failOnError)
+            error("$this\n$error")
+        else
+            logger.error(error)
+    }
+
     return proc.inputStream.bufferedReader().readText().trim()
 }
 

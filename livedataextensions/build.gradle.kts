@@ -1,6 +1,9 @@
+import com.android.build.gradle.api.LibraryVariant
 import org.jetbrains.kotlin.cli.jvm.main
 import java.util.zip.ZipFile
 import java.io.FileOutputStream
+import org.gradle.api.internal.DefaultDomainObjectSet
+
 
 plugins {
     id("com.android.library")
@@ -8,7 +11,6 @@ plugins {
     id("kotlin-android-extensions")
     id("kotlin-kapt")
     `maven-publish`
-    id("org.jetbrains.dokka")
 }
 
 sourceSets {
@@ -17,6 +19,7 @@ sourceSets {
 
 val kotlinVersion = rootProject.extra.get("kotlinVersion") as String
 val enableTest = rootProject.extra.get("enableTests") as (Project) -> Unit
+val publish = rootProject.extra.get("publish") as (p: Project, sourceSet: Set<File>, variant: DefaultDomainObjectSet<LibraryVariant>, classPath: FileCollection ) -> Unit
 
 //enableTest(project)
 
@@ -58,6 +61,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    publish(project,android.sourceSets["main"].java.srcDirs,android.libraryVariants, project.files(android.bootClasspath.joinToString(File.pathSeparator)) )
 
 }
 
