@@ -66,7 +66,7 @@ tasks.register("commit", Exec::class) {
     //dependsOn(getTasksByName("dokkaDoc", true))
     dependsOn(getTasksByName("done", true))
 
-    doLast {
+    //doLast {
         val builder = StringBuilder()
         val status = "git status".runCommand()
         subprojects.forEach {
@@ -86,19 +86,16 @@ tasks.register("commit", Exec::class) {
 
         println("commit message: $builder")
 
-        exec {
-            commandLine("git commit --all -m \"$builder\"")
-        }
         /*println("git commit --all -m \"$builder\"".runCommand(failOnError = true))
         println("git push".runCommand(failOnError = true))*/
+    //}
+
+
+    exec {
+        workingDir("./")
+        commandLine("./script_git.sh","\"$builder\"")
     }
 }
-
-tasks.register("push", Exec::class) {
-    dependsOn(getTasksByName("commit", false))
-    commandLine("git push")
-}
-
 
 val publish by extra {
     { p: Project, sourceSet: Set<File>, variant: DefaultDomainObjectSet<LibraryVariant>, classPath: FileCollection ->
