@@ -51,7 +51,7 @@ buildscript {
 allprojects {
     if (this.name != this.rootProject.name) { //Nothing is in the root project
         val dokka = tasks.create("dokkaDoc", DokkaTask::class) {
-            outputFormat = "html"
+            //outputFormat = "html"
             outputDirectory = "${buildDir}/dokka"
             subProjects = subprojects.map { it.name }
         }
@@ -77,10 +77,28 @@ allprojects {
                         //from(components["java"])
                         //from(projectComponents[this@allprojects])
 
-                        artifact(doc)
-                        artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
-
+                        artifacts {
+                            artifact(doc)
+                            artifact("${this@allprojects.buildDir}/outputs/aar/${this@allprojects.name}-release.aar")
+                        }
+                        pom {
+                            withXml {
+                                asNode()
+                                    .appendNode("build")
+                                    .appendNode("plugins")
+                                    .appendNode("plugin").apply {
+                                        appendNode("groupId", "org.apache.maven.plugins")
+                                        appendNode("artifactId", "maven-javadoc-plugin")
+                                        appendNode("version", version)
+                                        appendNode("configuration").apply {
+                                            //appendNode("show", "private")
+                                            //appendNode("nohelp", "true")
+                                        }
+                                    }
+                            }
+                        }
                     }
+
                 }
 
                 repositories {
