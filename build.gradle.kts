@@ -91,10 +91,10 @@ tasks.register("commit", Exec::class) {
     //}
 
 
-    exec {
+    //exec {
         workingDir("./")
         commandLine("./script_git.sh","\"$builder\"")
-    }
+    //}
 }
 
 val publish by extra {
