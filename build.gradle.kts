@@ -62,7 +62,7 @@ tasks.register("done") {
 }
 
 
-tasks.register("commit") {
+tasks.register("commit", Exec::class) {
     //dependsOn(getTasksByName("dokkaDoc", true))
     dependsOn(getTasksByName("done", true))
 
@@ -85,10 +85,18 @@ tasks.register("commit") {
         }
 
         println("commit message: $builder")
-        println("git commit --all -m \"$builder\"".runCommand(failOnError = true))
-        println("git push".runCommand(failOnError = true))
-    }
 
+        exec {
+            commandLine("git commit --all -m \"$builder\"")
+        }
+        /*println("git commit --all -m \"$builder\"".runCommand(failOnError = true))
+        println("git push".runCommand(failOnError = true))*/
+    }
+}
+
+tasks.register("push", Exec::class) {
+    dependsOn(getTasksByName("commit", false))
+    commandLine("git push")
 }
 
 
