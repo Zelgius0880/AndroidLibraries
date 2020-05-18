@@ -74,7 +74,7 @@ tasks.register("commit", Exec::class) {
 
                 if(exists() && status.contains("${it.name}/$name")) {
                     println("${it.name} was modified")
-                    builder.append(if(builder.isEmpty()) it.name else " - ${it.name}" )
+                    builder.append(if(builder.isEmpty())"${it.name}: " else " - ${it.name}: " )
 
                     it.getProperty<String>("commit_message", "version.properties")?.let { s ->
                         builder.append(s )
