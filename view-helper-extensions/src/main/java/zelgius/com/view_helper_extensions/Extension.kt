@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -38,6 +39,14 @@ fun Fragment.hideKeyboard() {
 }
 
 fun Fragment.snackBar(text: String, actionText: String = "", length: Int = Snackbar.LENGTH_SHORT, action: (() -> Unit)? = null) {
+    Snackbar.make(view!!, text, length).apply {
+        if (action != null) {
+            this.setAction(actionText) { action() }
+        }
+    }.show()
+}
+
+fun Fragment.snackBar(@StringRes text: Int, actionText: String = "", length: Int = Snackbar.LENGTH_SHORT, action: (() -> Unit)? = null) {
     Snackbar.make(view!!, text, length).apply {
         if (action != null) {
             this.setAction(actionText) { action() }

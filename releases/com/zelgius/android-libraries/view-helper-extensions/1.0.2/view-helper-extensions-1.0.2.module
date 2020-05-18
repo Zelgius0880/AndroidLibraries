@@ -2,8 +2,8 @@
   "formatVersion": "1.1",
   "component": {
     "group": "com.zelgius.android-libraries",
-    "module": "DialogExtensions",
-    "version": "1.0.0",
+    "module": "view-helper-extensions",
+    "version": "1.0.2",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -23,15 +23,24 @@
         "org.gradle.libraryelements": "aar",
         "org.gradle.usage": "java-api"
       },
+      "dependencies": [
+        {
+          "group": "androidx.databinding",
+          "module": "viewbinding",
+          "version": {
+            "requires": "3.6.3"
+          }
+        }
+      ],
       "files": [
         {
-          "name": "DialogExtensions-1.0.0.aar",
-          "url": "DialogExtensions-1.0.0.aar",
-          "size": 26881,
-          "sha512": "2c0edca6d374367a3c992b8fdb9f97b6d81bed3327a386189ca4730cfa6c719b9c80b1099fafc97b128b34c583352f32b64c5183c337730441f4afa89a1c25ff",
-          "sha256": "a7c44e266eedd9767ae2dcb7f4b68d9c283d5cfac844c6802a5fd39de3288807",
-          "sha1": "9b426233086604ea09d87aaf89530cfbbda7d591",
-          "md5": "ed4112b1495e67a51898c22e6c3964ec"
+          "name": "view-helper-extensions-1.0.2.aar",
+          "url": "view-helper-extensions-1.0.2.aar",
+          "size": 28224,
+          "sha512": "9735c29025db301fe386bba6b59b189c9b9c588acbaa28d8c7d82726e7040bfdfd5fda97b6b6c3a7762199823c5210916c9a029698036e2874f02f5512559f00",
+          "sha256": "5ee2b96f90fdf0782cda482aaba68ad8e77bf5015136bbea172ca5e2dc94b539",
+          "sha1": "401752e17ace070afa637252f191142576cfe8b8",
+          "md5": "1724f5e51ad1e94ec65a593a0bd7ec3f"
         }
       ]
     },
@@ -44,6 +53,13 @@
         "org.gradle.usage": "java-runtime"
       },
       "dependencies": [
+        {
+          "group": "androidx.databinding",
+          "module": "viewbinding",
+          "version": {
+            "requires": "3.6.3"
+          }
+        },
         {
           "group": "org.jetbrains.kotlin",
           "module": "kotlin-android-extensions-runtime",
@@ -82,13 +98,13 @@
       ],
       "files": [
         {
-          "name": "DialogExtensions-1.0.0.aar",
-          "url": "DialogExtensions-1.0.0.aar",
-          "size": 26881,
-          "sha512": "2c0edca6d374367a3c992b8fdb9f97b6d81bed3327a386189ca4730cfa6c719b9c80b1099fafc97b128b34c583352f32b64c5183c337730441f4afa89a1c25ff",
-          "sha256": "a7c44e266eedd9767ae2dcb7f4b68d9c283d5cfac844c6802a5fd39de3288807",
-          "sha1": "9b426233086604ea09d87aaf89530cfbbda7d591",
-          "md5": "ed4112b1495e67a51898c22e6c3964ec"
+          "name": "view-helper-extensions-1.0.2.aar",
+          "url": "view-helper-extensions-1.0.2.aar",
+          "size": 28224,
+          "sha512": "9735c29025db301fe386bba6b59b189c9b9c588acbaa28d8c7d82726e7040bfdfd5fda97b6b6c3a7762199823c5210916c9a029698036e2874f02f5512559f00",
+          "sha256": "5ee2b96f90fdf0782cda482aaba68ad8e77bf5015136bbea172ca5e2dc94b539",
+          "sha1": "401752e17ace070afa637252f191142576cfe8b8",
+          "md5": "1724f5e51ad1e94ec65a593a0bd7ec3f"
         }
       ]
     }
