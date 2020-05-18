@@ -1,0 +1,96 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.zelgius.android-libraries",
+    "module": "ContextExtensions",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.4-rc-2",
+      "buildId": "bkankviot5gcdoixwyjzpbweh4"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "ContextExtensions-1.0.0.aar",
+          "url": "ContextExtensions-1.0.0.aar",
+          "size": 24452,
+          "sha512": "4e4f6911ad063f16bc731a635e86e8f5d1e8f0478f1f80c7eef820532c91d7f0f4130cfdadc85eae77a3fbb463b19297329cea8c6732fb9b9ba30267f1e0ccd9",
+          "sha256": "4227554665f2f895577642ba2c6f1a276cbb5f491f8be38e177109fa45787292",
+          "sha1": "8f7f036be60af61ffbb65705afdc043f3b5d0ca4",
+          "md5": "b454e48ecf0513589d12257a731f3234"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-android-extensions-runtime",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "com.google.android.material",
+          "module": "material",
+          "version": {
+            "requires": "1.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "ContextExtensions-1.0.0.aar",
+          "url": "ContextExtensions-1.0.0.aar",
+          "size": 24452,
+          "sha512": "4e4f6911ad063f16bc731a635e86e8f5d1e8f0478f1f80c7eef820532c91d7f0f4130cfdadc85eae77a3fbb463b19297329cea8c6732fb9b9ba30267f1e0ccd9",
+          "sha256": "4227554665f2f895577642ba2c6f1a276cbb5f491f8be38e177109fa45787292",
+          "sha1": "8f7f036be60af61ffbb65705afdc043f3b5d0ca4",
+          "md5": "b454e48ecf0513589d12257a731f3234"
+        }
+      ]
+    }
+  ]
+}

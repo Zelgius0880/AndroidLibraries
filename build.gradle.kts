@@ -112,13 +112,13 @@ val publish by extra {
             exclude ("**/R.html", "**/R.*.html", "**/index.html")
         }
 
-        val doc = tasks.create("doc", Jar::class) {
+        val doc = p.tasks.create("doc", Jar::class) {
             dependsOn(buildDoc)
             archiveClassifier.set("javadoc")
             from(buildDoc.destinationDir)
         }
 
-        val source = tasks.create("androidSources", Jar::class) {
+        val source = p.tasks.create("androidSources", Jar::class) {
             archiveClassifier.set("sources")
             from (sourceSet)
         }

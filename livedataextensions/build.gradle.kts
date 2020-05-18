@@ -1,7 +1,5 @@
 import com.android.build.gradle.api.LibraryVariant
 import org.jetbrains.kotlin.cli.jvm.main
-import java.util.zip.ZipFile
-import java.io.FileOutputStream
 import org.gradle.api.internal.DefaultDomainObjectSet
 
 

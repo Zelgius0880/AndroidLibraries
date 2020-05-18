@@ -1,0 +1,96 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.zelgius.android-libraries",
+    "module": "DialogExtensions",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.4-rc-2",
+      "buildId": "bkankviot5gcdoixwyjzpbweh4"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "DialogExtensions-1.0.0.aar",
+          "url": "DialogExtensions-1.0.0.aar",
+          "size": 26881,
+          "sha512": "2c0edca6d374367a3c992b8fdb9f97b6d81bed3327a386189ca4730cfa6c719b9c80b1099fafc97b128b34c583352f32b64c5183c337730441f4afa89a1c25ff",
+          "sha256": "a7c44e266eedd9767ae2dcb7f4b68d9c283d5cfac844c6802a5fd39de3288807",
+          "sha1": "9b426233086604ea09d87aaf89530cfbbda7d591",
+          "md5": "ed4112b1495e67a51898c22e6c3964ec"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-android-extensions-runtime",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "com.google.android.material",
+          "module": "material",
+          "version": {
+            "requires": "1.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "DialogExtensions-1.0.0.aar",
+          "url": "DialogExtensions-1.0.0.aar",
+          "size": 26881,
+          "sha512": "2c0edca6d374367a3c992b8fdb9f97b6d81bed3327a386189ca4730cfa6c719b9c80b1099fafc97b128b34c583352f32b64c5183c337730441f4afa89a1c25ff",
+          "sha256": "a7c44e266eedd9767ae2dcb7f4b68d9c283d5cfac844c6802a5fd39de3288807",
+          "sha1": "9b426233086604ea09d87aaf89530cfbbda7d591",
+          "md5": "ed4112b1495e67a51898c22e6c3964ec"
+        }
+      ]
+    }
+  ]
+}
