@@ -91,11 +91,12 @@ tasks.register("commit", Exec::class) {
         println("git push".runCommand(failOnError = true))*/
     //}
 
-
-    //exec {
+    if(builder.isNotEmpty()) {
+        //exec {
         workingDir("./")
-        commandLine("./script_git.sh","\"$builder\"")
-    //}
+        commandLine("./script_git.sh", "$builder")
+        //}
+    }
 }
 
 val publish by extra {

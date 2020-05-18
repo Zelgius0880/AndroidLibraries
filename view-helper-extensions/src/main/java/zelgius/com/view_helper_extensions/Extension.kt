@@ -38,16 +38,16 @@ fun Fragment.hideKeyboard() {
     }
 }
 
-fun Fragment.snackBar(text: String, actionText: String = "", length: Int = Snackbar.LENGTH_SHORT, action: (() -> Unit)? = null) {
-    Snackbar.make(view!!, text, length).apply {
+fun Fragment.snackBar(text: String, actionText: String = "", length: Int = Snackbar.LENGTH_SHORT, v: View? = null, action: (() -> Unit)? = null) {
+    Snackbar.make(v?:view!!, text, length).apply {
         if (action != null) {
             this.setAction(actionText) { action() }
         }
     }.show()
 }
 
-fun Fragment.snackBar(@StringRes text: Int, actionText: String = "", length: Int = Snackbar.LENGTH_SHORT, action: (() -> Unit)? = null) {
-    Snackbar.make(view!!, text, length).apply {
+fun Fragment.snackBar(@StringRes text: Int, actionText: String = "", length: Int = Snackbar.LENGTH_SHORT, v: View? = null, action: (() -> Unit)? = null) {
+    Snackbar.make(v?:view!!, text, length).apply {
         if (action != null) {
             this.setAction(actionText) { action() }
         }

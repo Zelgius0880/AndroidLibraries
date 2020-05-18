@@ -2,8 +2,8 @@
   "formatVersion": "1.1",
   "component": {
     "group": "com.zelgius.android-libraries",
-    "module": "ContextExtensions",
-    "version": "1.0.0",
+    "module": "view-helper-extensions",
+    "version": "1.0.3",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -23,15 +23,24 @@
         "org.gradle.libraryelements": "aar",
         "org.gradle.usage": "java-api"
       },
+      "dependencies": [
+        {
+          "group": "androidx.databinding",
+          "module": "viewbinding",
+          "version": {
+            "requires": "3.6.3"
+          }
+        }
+      ],
       "files": [
         {
-          "name": "ContextExtensions-1.0.0.aar",
-          "url": "ContextExtensions-1.0.0.aar",
-          "size": 24452,
-          "sha512": "4e4f6911ad063f16bc731a635e86e8f5d1e8f0478f1f80c7eef820532c91d7f0f4130cfdadc85eae77a3fbb463b19297329cea8c6732fb9b9ba30267f1e0ccd9",
-          "sha256": "4227554665f2f895577642ba2c6f1a276cbb5f491f8be38e177109fa45787292",
-          "sha1": "8f7f036be60af61ffbb65705afdc043f3b5d0ca4",
-          "md5": "b454e48ecf0513589d12257a731f3234"
+          "name": "view-helper-extensions-1.0.3.aar",
+          "url": "view-helper-extensions-1.0.3.aar",
+          "size": 28302,
+          "sha512": "8a7d96de16e5e89ffbdd398fd1c357ee79e98acd59153ad60646f9ddc32a7214005384d14cd3ccfd9c1ceeff005f9cd4464bd9bdc80a3e0d069363e63c150b64",
+          "sha256": "efbdb60fd096711ef8e6f9026ce679ac06011f201aaf1b979a73e5b3588e4c91",
+          "sha1": "e2d244d51780dc574b84cc2bb2a196d97e7e1cb3",
+          "md5": "b9b6e6694f65f53126ada2965d7370d0"
         }
       ]
     },
@@ -44,6 +53,13 @@
         "org.gradle.usage": "java-runtime"
       },
       "dependencies": [
+        {
+          "group": "androidx.databinding",
+          "module": "viewbinding",
+          "version": {
+            "requires": "3.6.3"
+          }
+        },
         {
           "group": "org.jetbrains.kotlin",
           "module": "kotlin-android-extensions-runtime",
@@ -82,13 +98,13 @@
       ],
       "files": [
         {
-          "name": "ContextExtensions-1.0.0.aar",
-          "url": "ContextExtensions-1.0.0.aar",
-          "size": 24452,
-          "sha512": "4e4f6911ad063f16bc731a635e86e8f5d1e8f0478f1f80c7eef820532c91d7f0f4130cfdadc85eae77a3fbb463b19297329cea8c6732fb9b9ba30267f1e0ccd9",
-          "sha256": "4227554665f2f895577642ba2c6f1a276cbb5f491f8be38e177109fa45787292",
-          "sha1": "8f7f036be60af61ffbb65705afdc043f3b5d0ca4",
-          "md5": "b454e48ecf0513589d12257a731f3234"
+          "name": "view-helper-extensions-1.0.3.aar",
+          "url": "view-helper-extensions-1.0.3.aar",
+          "size": 28302,
+          "sha512": "8a7d96de16e5e89ffbdd398fd1c357ee79e98acd59153ad60646f9ddc32a7214005384d14cd3ccfd9c1ceeff005f9cd4464bd9bdc80a3e0d069363e63c150b64",
+          "sha256": "efbdb60fd096711ef8e6f9026ce679ac06011f201aaf1b979a73e5b3588e4c91",
+          "sha1": "e2d244d51780dc574b84cc2bb2a196d97e7e1cb3",
+          "md5": "b9b6e6694f65f53126ada2965d7370d0"
         }
       ]
     }
