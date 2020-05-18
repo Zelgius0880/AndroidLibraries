@@ -1,3 +1,4 @@
+include(":view-helper-extensions")
 include(":DialogExtensions")
 include(":ContextExtensions")
 rootProject.name = "AndroidLibraries"

@@ -1,0 +1,96 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.zelgius.android-libraries",
+    "module": "view-helper-extensions",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.4-rc-2",
+      "buildId": "y2o4zr4eb5gtdl7zk6jgft723i"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "view-helper-extensions-1.0.0.aar",
+          "url": "view-helper-extensions-1.0.0.aar",
+          "size": 23180,
+          "sha512": "eacc0a1d490a9abbc64e725266cb0e824d3063a00821130457fb0ee8ac0327027fd7b71468bdf11a8bf61d3dd45804390f2c8e87480db4fca0b68e412dda47e6",
+          "sha256": "3ba041672453ad721f57b393bf8d18583203dc40849e9b334849f84ec1fc4f41",
+          "sha1": "72e0ac143201f5f188db793d2de1ab6d9fbf33a4",
+          "md5": "770e0f3de64e49d1a5d7d2af485b57c9"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-android-extensions-runtime",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.3.72"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "com.google.android.material",
+          "module": "material",
+          "version": {
+            "requires": "1.1.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "view-helper-extensions-1.0.0.aar",
+          "url": "view-helper-extensions-1.0.0.aar",
+          "size": 23180,
+          "sha512": "eacc0a1d490a9abbc64e725266cb0e824d3063a00821130457fb0ee8ac0327027fd7b71468bdf11a8bf61d3dd45804390f2c8e87480db4fca0b68e412dda47e6",
+          "sha256": "3ba041672453ad721f57b393bf8d18583203dc40849e9b334849f84ec1fc4f41",
+          "sha1": "72e0ac143201f5f188db793d2de1ab6d9fbf33a4",
+          "md5": "770e0f3de64e49d1a5d7d2af485b57c9"
+        }
+      ]
+    }
+  ]
+}
