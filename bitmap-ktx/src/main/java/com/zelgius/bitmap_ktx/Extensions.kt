@@ -130,7 +130,7 @@ fun View.toBitmap(
 fun Bitmap.scale(dstWidth: Int, dstHeight: Int): Bitmap =
     Bitmap.createScaledBitmap(this, dstWidth, dstHeight, false)
 
-private fun Bitmap.rotate(degrees: Float = 90f): Bitmap =
+fun Bitmap.rotate(degrees: Float = 90f): Bitmap =
     Bitmap.createBitmap(
         this,
         0,

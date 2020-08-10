@@ -11,7 +11,7 @@
   "createdBy": {
     "gradle": {
       "version": "6.5",
-      "buildId": "vple4hwjozg4vdvfrrvup77lfa"
+      "buildId": "hvq42vlddfebdmpr2wesluenzq"
     }
   },
   "variants": [
@@ -27,11 +27,11 @@
         {
           "name": "bitmap-ktx-1.0.0.aar",
           "url": "bitmap-ktx-1.0.0.aar",
-          "size": 31037,
-          "sha512": "3b1100b497c8fdaa29cfa2005fec1cb885931798e123a69a8a292de122d5d4154949f3fb95841e2ba0fade9354aee9b11f0943c155273def46d68c108e016299",
-          "sha256": "2d24b3adc5adc02868f61c0f079a5e29bf5dcc1e7686b39afd95a8ad661f2b5d",
-          "sha1": "a1216a98f78df8e6996ec1c111580e4c7a9bb8bf",
-          "md5": "e612258ef0046735eef9d01704430164"
+          "size": 31038,
+          "sha512": "02d3f3c01d98df439417d48f34a261336f4985e9095ea91fa3ec1075871ea2a138115fb8172b617523dfea98635e8d5c4c269eb271f8d0752a99f528aa3f7deb",
+          "sha256": "27b5ba49b9dabc3ec72f0a33f791e528aaa068d9f0aa1a2d54a71c8095cb29cb",
+          "sha1": "2a50458e2e5527fc48bc27c50edeb06e340264ab",
+          "md5": "04a5be283003b4eb0a3e307d660e694d"
         }
       ]
     },
@@ -77,11 +77,11 @@
         {
           "name": "bitmap-ktx-1.0.0.aar",
           "url": "bitmap-ktx-1.0.0.aar",
-          "size": 31037,
-          "sha512": "3b1100b497c8fdaa29cfa2005fec1cb885931798e123a69a8a292de122d5d4154949f3fb95841e2ba0fade9354aee9b11f0943c155273def46d68c108e016299",
-          "sha256": "2d24b3adc5adc02868f61c0f079a5e29bf5dcc1e7686b39afd95a8ad661f2b5d",
-          "sha1": "a1216a98f78df8e6996ec1c111580e4c7a9bb8bf",
-          "md5": "e612258ef0046735eef9d01704430164"
+          "size": 31038,
+          "sha512": "02d3f3c01d98df439417d48f34a261336f4985e9095ea91fa3ec1075871ea2a138115fb8172b617523dfea98635e8d5c4c269eb271f8d0752a99f528aa3f7deb",
+          "sha256": "27b5ba49b9dabc3ec72f0a33f791e528aaa068d9f0aa1a2d54a71c8095cb29cb",
+          "sha1": "2a50458e2e5527fc48bc27c50edeb06e340264ab",
+          "md5": "04a5be283003b4eb0a3e307d660e694d"
         }
       ]
     }
