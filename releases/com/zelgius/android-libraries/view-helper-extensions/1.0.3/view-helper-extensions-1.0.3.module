@@ -10,8 +10,8 @@
   },
   "createdBy": {
     "gradle": {
-      "version": "6.4-rc-2",
-      "buildId": "kjs6pkr4y5fl7d6m52dceix5ti"
+      "version": "6.5",
+      "buildId": "vple4hwjozg4vdvfrrvup77lfa"
     }
   },
   "variants": [
@@ -28,7 +28,7 @@
           "group": "androidx.databinding",
           "module": "viewbinding",
           "version": {
-            "requires": "3.6.3"
+            "requires": "4.2.0-alpha07"
           }
         }
       ],
@@ -36,11 +36,11 @@
         {
           "name": "view-helper-extensions-1.0.3.aar",
           "url": "view-helper-extensions-1.0.3.aar",
-          "size": 28302,
-          "sha512": "8a7d96de16e5e89ffbdd398fd1c357ee79e98acd59153ad60646f9ddc32a7214005384d14cd3ccfd9c1ceeff005f9cd4464bd9bdc80a3e0d069363e63c150b64",
-          "sha256": "efbdb60fd096711ef8e6f9026ce679ac06011f201aaf1b979a73e5b3588e4c91",
-          "sha1": "e2d244d51780dc574b84cc2bb2a196d97e7e1cb3",
-          "md5": "b9b6e6694f65f53126ada2965d7370d0"
+          "size": 28432,
+          "sha512": "5fc783c92f66541e2529585f23032542260d6632cf57a80ae5f3b801af2ec6aa673390c8acf5923fa38a865e658499ce8c48b279eb25ee01de851d03dd3ddb5a",
+          "sha256": "bb2497e7b4ccd2604db99df1fbb520ee87414ff5b04d58e0f382bcdf93386c0a",
+          "sha1": "d48d2434970ef517402de37c066a1ed4b449bd25",
+          "md5": "9f34626ae82ba2070a01906468ecb88a"
         }
       ]
     },
@@ -57,21 +57,21 @@
           "group": "androidx.databinding",
           "module": "viewbinding",
           "version": {
-            "requires": "3.6.3"
+            "requires": "4.2.0-alpha07"
           }
         },
         {
           "group": "org.jetbrains.kotlin",
           "module": "kotlin-android-extensions-runtime",
           "version": {
-            "requires": "1.3.72"
+            "requires": "1.4.0-rc"
           }
         },
         {
           "group": "org.jetbrains.kotlin",
           "module": "kotlin-stdlib",
           "version": {
-            "requires": "1.3.72"
+            "requires": "1.4.0-rc"
           }
         },
         {
@@ -100,11 +100,11 @@
         {
           "name": "view-helper-extensions-1.0.3.aar",
           "url": "view-helper-extensions-1.0.3.aar",
-          "size": 28302,
-          "sha512": "8a7d96de16e5e89ffbdd398fd1c357ee79e98acd59153ad60646f9ddc32a7214005384d14cd3ccfd9c1ceeff005f9cd4464bd9bdc80a3e0d069363e63c150b64",
-          "sha256": "efbdb60fd096711ef8e6f9026ce679ac06011f201aaf1b979a73e5b3588e4c91",
-          "sha1": "e2d244d51780dc574b84cc2bb2a196d97e7e1cb3",
-          "md5": "b9b6e6694f65f53126ada2965d7370d0"
+          "size": 28432,
+          "sha512": "5fc783c92f66541e2529585f23032542260d6632cf57a80ae5f3b801af2ec6aa673390c8acf5923fa38a865e658499ce8c48b279eb25ee01de851d03dd3ddb5a",
+          "sha256": "bb2497e7b4ccd2604db99df1fbb520ee87414ff5b04d58e0f382bcdf93386c0a",
+          "sha1": "d48d2434970ef517402de37c066a1ed4b449bd25",
+          "md5": "9f34626ae82ba2070a01906468ecb88a"
         }
       ]
     }
